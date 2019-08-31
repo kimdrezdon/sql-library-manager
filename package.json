@@ -23,5 +23,9 @@
   },
   "devDependencies": {
     "nodemon": "1.19.1"
+  },
+  "dependencies": {
+    "sequelize": "^5.18.0",
+    "sqlite3": "^4.1.0"
   }
 }
