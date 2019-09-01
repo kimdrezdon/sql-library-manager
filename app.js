@@ -7,7 +7,7 @@ const { Book } = db.models;
 // async IIFE
 (async () => {
     // sync all tables. force:true drops the table that exists each time the app is started and recreates it from the model definition
-    await sequelize.sync({ force: true });
+    await db.sequelize.sync({ force: true });
     try { 
         // waits until all promises are returned by the Model.create() method are fulfilled
         await Promise.all([
