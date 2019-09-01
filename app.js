@@ -1,35 +1,8 @@
-// require sequelize
-const Sequelize = require('sequelize');
+// imports the database from index.js
+const db = require('./db');
 
-// instantiate sequelize and configure it
-const sequelize = new Sequelize({
-    dialect: 'sqlite', 
-    storage: 'library.db',
-    logging: false //disable logging
-});
-
-// defines and initializes Book model
-class Book extends Sequelize.Model {}
-Book.init(
-    { // attributes object
-        title: {
-            type: Sequelize.STRING
-        },
-        author: {
-            type: Sequelize.STRING
-        },
-        genre: {
-            type: Sequelize.STRING
-        },
-        year: {
-            type: Sequelize.INTEGER
-        }
-    },
-    { // options object
-        sequelize
-    }
-);
-
+// destructures the Book model imported from db.models
+const { Book } = db.models;
 
 // async IIFE
 (async () => {
