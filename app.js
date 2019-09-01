@@ -19,6 +19,13 @@ const { Book } = db.models;
             })
         ]);
     } catch (error) {
-
+        if (error.name === 'SequelizeValidationError') {
+            // maps the errors array to display all the error messages
+            const errors = error.errors.map(err => err.message);
+            console.error('Validation errors: ', errors);
+        } else {
+            // rethrows other types of errors caught by catch (general errors, record missing, unforseen errors)
+            throw error;
+        }
     }
 } ) ();
