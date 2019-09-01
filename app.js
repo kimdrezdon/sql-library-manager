@@ -37,10 +37,12 @@ const { Book } = db.models;
     }
 } ) ();
 
+//Serve static files
+app.use("/static", express.static("public"));
+
 //Routes
-app.use('/', (req, res) => {
-    res.send('I love pasta!')
-});
+app.use('/', require("./routes/index"));
+app.use('/books', require("./routes/books"));
 
 //Heroku port setup
 let port = process.env.PORT || 5000;
