@@ -1,3 +1,7 @@
+//Require express
+const express = require("express");
+const app = express();
+
 // imports the database from index.js
 const db = require('./db');
 
@@ -29,3 +33,10 @@ const { Book } = db.models;
         }
     }
 } ) ();
+
+//Heroku port setup
+let port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`The application is running on localhost:${port}`);
+});
