@@ -1,0 +1,37 @@
+//- Displays the new book form
+extends layout.pug
+
+block content
+    h1 New Book
+
+    include errors
+
+    form(action="/books/new", method="post")
+        p
+            label(for='title') Title
+            if errors 
+                input#title(name='title', type='text', value=`${title}`)
+            else
+                input#title(name='title', type='text')
+        p
+            label(for='author') Author
+            if errors
+                input#author(name='author', type='text', value=`${author}`)
+            else
+                input#author(name='author', type='text')
+        p
+            label(for='genre') Genre
+            if errors
+                input#genre(name='genre', type='text', value=`${genre}`)
+            else
+                input#genre(name='genre', type='text')
+        p
+            label(for='year') Year
+            if errors
+                input#year(name='year', type='text', value=`${year}`)
+            else
+                input#year(name='year', type='text')
+        p
+            input(type='submit', value='Create New Book')
+        p
+            a.button(href='/books') Cancel
