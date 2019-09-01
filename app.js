@@ -5,6 +5,9 @@ const app = express();
 // imports the database from index.js
 const db = require('./db');
 
+//Set Pug as the templating engine
+app.set("view engine", "pug");
+
 // destructures the Book model imported from db.models
 const { Book } = db.models;
 
@@ -33,6 +36,11 @@ const { Book } = db.models;
         }
     }
 } ) ();
+
+//Routes
+app.use('/', (req, res) => {
+    res.send('I love pasta!')
+});
 
 //Heroku port setup
 let port = process.env.PORT || 5000;
