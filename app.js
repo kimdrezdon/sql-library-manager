@@ -23,6 +23,18 @@ const { Book } = db.models;
                 author: 'J.K. Rowling',
                 genre: 'Fantasy',
                 year: 1997
+            }),
+            Book.create({
+                title: "Harry Potter and the Chamber of Secrets",
+                author: 'J.K. Rowling',
+                genre: 'Fantasy',
+                year: 1998
+            }),
+            Book.create({
+                title: "The Last Time I Lied",
+                author: 'Riley Sager',
+                genre: 'Mystery',
+                year: 2018
             })
         ]);
     } catch (error) {
