@@ -21,9 +21,8 @@ router.get('/', async (req, res, next) => {
 //GET /books/new - Display the create new book form
 router.get('/new', async (req, res, next) => {
     try {
-        const book = await Book.build();
+        await Book.build();
         res.render('new-book', {
-            book: book, 
             pageTitle: "New Book"
         });
     } catch (err) {
@@ -61,11 +60,10 @@ router.get('/:id', async (req, res, next) => {
     try {
         const book = await Book.findByPk(req.params.id);
         if (book) {
-            const pageTitle= book.dataValues.title;
             const {id, title, author, genre, year} = book.dataValues;
         
             const templateData = {
-                pageTitle,
+                pageTitle: "Update Book",
                 id,
                 title,
                 author,
@@ -101,7 +99,7 @@ router.post('/:id', async (req, res, next) => {
             const {title, author, genre, year} = book.dataValues;
         
             const templateData = {
-                pageTitle: book.dataValues.title,
+                pageTitle: "Update Book",
                 id: req.params.id,
                 title,
                 author,
@@ -118,5 +116,18 @@ router.post('/:id', async (req, res, next) => {
 });
 
 //POST /books/:id/delete - Deletes a book, can't be undone
+router.post('/:id/delete', async (req, res, next) => {
+    try {
+        const book = await Book.findByPk(req.params.id);
+        if (book) {
+            await book.destroy();
+            res.redirect('/books');
+        } else {
+            res.render('page-not-found', {pageTitle: "Page Not Found"});
+        }
+    } catch (err) {
+        res.render('error', {error: err, pageTitle: "Server Error"});
+    }
+});
 
 module.exports = router;
