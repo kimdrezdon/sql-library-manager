@@ -1,10 +1,18 @@
 body {
   padding: 10px 50px 50px;
   font: 18px "Garamond", serif;
+  background-image: url('../images/alfons-morales-YLSwjSy7stw-unsplash.jpg');
+  background-color: #000000;
+  background-size: contain;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+
+div.wrapper {
+  background-color: #D5B9B2;
 }
 
 a {
-  color: #019875;
+  color: #A26769;
   text-decoration: none;
   font-weight: bold;
   transition: 0.4s;
@@ -16,8 +24,7 @@ a {
 
 a.button, input[type=submit] {
   color: white;
-  background: #019875;
-  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #A26769;
   padding: 10px 14px 12px;
   font-size: 14px;
   border-radius: 2px;
@@ -34,7 +41,7 @@ input[type=submit] {
 }
 
   a.button:hover, input[type=submit]:hover {
-    background-color: #01b189;
+    background-color: #A26769;
   }
 
 p {
@@ -80,7 +87,6 @@ label {
 
 input {
   padding: 10px;
-  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   font-size: 14px;
   border-radius: 2px;
   border-color: #E7E7E7;
@@ -93,5 +99,5 @@ input[type=text] {
 }
 
 .error {
-  color: rgb(236, 15, 15);
+  color: #582C4D;
 }
