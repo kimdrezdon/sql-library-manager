@@ -34,7 +34,6 @@ router.get('/new', async (req, res, next) => {
 router.post('/new', async (req, res, next) => {
     try {
         const book = await Book.create(req.body);
-        console.log(book);
         res.redirect('/books/' + book.dataValues.id);
     } catch (err) {
         if(err.name === "SequelizeValidationError") {
@@ -54,7 +53,6 @@ router.post('/new', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     try {
         const book = await Book.findByPk(req.params.id);
-        console.log(book);
         if (book) {
             const pageTitle= book.dataValues.title;
             const {id, title, author, genre, year} = book.dataValues;
@@ -74,6 +72,34 @@ router.get('/:id', async (req, res, next) => {
         }
     } catch (err) {
         res.render('error', {error: err, pageTitle: "Server Error"});
+    }
+});
+
+//POST /books/:id - Updates book info in the database
+router.post('/:id', async (req, res, next) => {
+    try {
+        const book = await Book.findByPk(req.params.id);
+        
+        if (book) {
+            book.update(req.body);
+        } else {
+            res.render('page-not-found', {pageTitle: "Page Not Found"});
+        }
+
+        res.redirect(`/books/${book.dataValues.id}`);
+    } catch(err) {
+        if(err.name === "SequelizeValidationError") {
+            let book = Book.build(req.body);
+            book.id = req.params.id;
+
+            res.render('update-book', {
+                book: book,
+                pageTitle: book.dataValues.title,
+                errors: err.errors
+            })
+        } else {
+            res.render('error', {pageTitle: "Server Error"});
+        }
     }
 });
 
