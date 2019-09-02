@@ -21,8 +21,9 @@ router.get('/', async (req, res, next) => {
 //GET /books/new - Display the create new book form
 router.get('/new', async (req, res, next) => {
     try {
+        const book = await Book.build();
         res.render('new-book', {
-            book: Book.build(), 
+            book: book, 
             pageTitle: "New Book"
         });
     } catch (err) {
@@ -33,16 +34,22 @@ router.get('/new', async (req, res, next) => {
 //POST /books/new - Posts a new book to the database
 router.post('/new', async (req, res, next) => {
     try {
-        const book = await Book.create(req.body);
-        res.redirect('/books/' + book.dataValues.id);
+        await Book.create(req.body);
+        res.redirect('/books');
     } catch (err) {
         if(err.name === "SequelizeValidationError") {
             console.log('Sequelize Validation Error thrown');
-            res.render('new-book', {
-                book: Book.build(req.body),
+            const book = await Book.build(req.body);
+            const {title, author, genre, year} = book.dataValues;
+            const templateData = {
                 pageTitle: "New Book",
+                title,
+                author,
+                genre,
+                year,
                 errors: err.errors
-            })
+            };
+            res.render('new-book', templateData);
         } else {
             res.render('error', {error: err, pageTitle: "Server Error"});
         }
@@ -81,26 +88,35 @@ router.post('/:id', async (req, res, next) => {
         const book = await Book.findByPk(req.params.id);
         
         if (book) {
-            book.update(req.body);
+            await book.update(req.body);
         } else {
             res.render('page-not-found', {pageTitle: "Page Not Found"});
         }
 
-        res.redirect(`/books/${book.dataValues.id}`);
+        res.redirect('/books');
     } catch(err) {
         if(err.name === "SequelizeValidationError") {
-            let book = Book.build(req.body);
-            book.id = req.params.id;
-
-            res.render('update-book', {
-                book: book,
+            console.log('Sequelize Validation Error thrown');
+            const book = await Book.build(req.body);
+            const {title, author, genre, year} = book.dataValues;
+        
+            const templateData = {
                 pageTitle: book.dataValues.title,
+                id: req.params.id,
+                title,
+                author,
+                genre,
+                year,
                 errors: err.errors
-            })
+            };
+
+            res.render('update-book', templateData);
         } else {
             res.render('error', {pageTitle: "Server Error"});
         }
     }
 });
+
+//POST /books/:id/delete - Deletes a book, can't be undone
 
 module.exports = router;
