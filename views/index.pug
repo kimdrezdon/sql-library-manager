@@ -19,10 +19,16 @@ block content
             th Genre
             th Year
         tbody
-          each book, index in books
+          each book in books
             tr
               td
                 a(href=`/books/${book.dataValues.id}`)= book.dataValues.title
               td= book.dataValues.author
               td= book.dataValues.genre
               td= book.dataValues.year
+    .pagination
+      - var n = 0;
+      ul
+        while n < totalPages
+          li
+            a(href='#')= n++

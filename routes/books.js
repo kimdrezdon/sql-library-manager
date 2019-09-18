@@ -8,10 +8,12 @@ const { Book } = require("../db").models;
 //GET /books - Display the full list of books 
 router.get('/', async (req, res, next) => {
     try {
-        const books = await Book.findAll();
+        const books = await Book.findAndCountAll();
+        const totalPages = Math.ceil(books.count / 5);
         res.render('index', {
             pageTitle: "Books", 
-            books: books
+            books: books.rows,
+            totalPages: totalPages
         });
     } catch (err) {
         res.render('error', {error: err, pageTitle: "Server Error"});
