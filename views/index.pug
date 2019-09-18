@@ -4,20 +4,25 @@ extends layout.pug
 block content 
   .wrapper
     h1= pageTitle
-    p
-      a.button(href='/books/new') Create New Book
-    table
-      thead
-        tr
-          th Title
-          th Author
-          th Genre
-          th Year
-      tbody
-        each book, index in books
+    .page-header
+      p
+        a.button(href='/books/new') Create New Book
+      .book-search
+        input(placeholder="Search for a book...")
+        button Search
+    .book-list
+      table
+        thead
           tr
-            td
-              a(href=`/books/${book.dataValues.id}`)= book.dataValues.title
-            td= book.dataValues.author
-            td= book.dataValues.genre
-            td= book.dataValues.year
+            th Title
+            th Author
+            th Genre
+            th Year
+        tbody
+          each book, index in books
+            tr
+              td
+                a(href=`/books/${book.dataValues.id}`)= book.dataValues.title
+              td= book.dataValues.author
+              td= book.dataValues.genre
+              td= book.dataValues.year
