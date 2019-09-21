@@ -93,6 +93,14 @@ td {
   padding: 5px 20px 5px 10px;
 }
 
+.no-results {
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 0 0 40px;
+  color: rgba(255, 249, 242, 1);
+}
+
 label {
   font-weight: 700;
   font-size: 16px;

@@ -11,8 +11,8 @@ Creates div to store No Results message, defaults it to hidden
 const noResultsDiv = document.createElement("div");
 pageDiv.appendChild(noResultsDiv);
 noResultsDiv.innerHTML =
-  '<p style = "font-style: italic">No results' +
-  " were found. Please try another search.</p>";
+  '<p>No results were found. Please try another search.</p>';
+noResultsDiv.className = 'no-results';
 noResultsDiv.style.display = "none";
 
 /*
