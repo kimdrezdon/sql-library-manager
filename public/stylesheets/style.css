@@ -11,6 +11,11 @@ div.wrapper {
   background-color: #D5B9B2;
 }
 
+h1 {
+  text-align: center;
+  padding: 20px 0 0 0;
+}
+
 a {
   color: #A26769;
   text-decoration: none;
@@ -29,6 +34,10 @@ a.button, input[type=submit] {
   font-size: 14px;
   border-radius: 2px;
   cursor: pointer;
+}
+
+form {
+  padding: 20px;
 }
 
 form a.button, input[type=submit] {
@@ -55,13 +64,9 @@ ul {
   line-height: 1.3em;
 }
 
-h2 {
-  border-top: 2px solid #e7e7e7;
-  padding-top: 20px;
-}
-
 table {
   width: 100%;
+  padding: 20px;
 }
 
 th {
@@ -108,8 +113,18 @@ input[type=text] {
   color: #582C4D;
 }
 
+.page-not-found {
+  padding: 0 0 20px 20px;
+}
+
+.errors {
+  padding: 0 0 0 20px;
+  color: #582C4D;
+}
+
 .page-header{
   margin-bottom: 100px;
+  padding: 0 20px;
 }
   .page-header p{
     float: left;
@@ -144,7 +159,7 @@ input[type=text] {
 
 .pagination{
   margin: 30px 0;
-  padding: 0 0 10px 0;
+  padding: 0 0 20px 0;
   text-align: center;
 }
  

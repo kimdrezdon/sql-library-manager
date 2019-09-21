@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
             ]
         });
         res.render('index', {
-            pageTitle: "Books", 
+            pageTitle: "My Library", 
             books: books
         });
     } catch (err) {

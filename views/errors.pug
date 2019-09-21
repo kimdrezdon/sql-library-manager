@@ -1,7 +1,8 @@
 //- Displays errors on create new book view
 if(errors)
-  h2.errors Please complete all required fields.
-  ul.errors
-    each error in errors
-      li
-        =error.message
+  .errors
+    h2 Please complete all required fields.
+    ul
+      each error in errors
+        li
+          =error.message
