@@ -5,12 +5,14 @@ const router = express.Router();
 //Book model
 const { Book } = require("../db").models;
 
-//GET /books - Display the full list of books 
+const { sequelize } = Book
+
+//GET /books - Display the full list of books ordered by author then year
 router.get('/', async (req, res, next) => {
     try {
         const books = await Book.findAll({
             order: [
-                ['author', 'ASC'],
+                [sequelize.fn('upper', sequelize.col('author')), 'ASC'],
                 ['year', 'ASC']
             ]
         });
