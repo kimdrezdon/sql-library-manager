@@ -16,7 +16,7 @@ noResultsDiv.innerHTML =
 noResultsDiv.style.display = "none";
 
 /*
-Displays only five books at a time, based on the page selected. Adds the active class to only the active page link
+Displays only 10 books at a time, based on the page selected. Adds the active class to only the active page link
 */
 const showPage = (list, page) => {
     const firstIndex = page * booksPerPage - booksPerPage;
