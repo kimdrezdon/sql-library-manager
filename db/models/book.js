@@ -12,11 +12,11 @@ module.exports = (sequelize) => {
                 validate: {
                     notNull: { 
                         // custom error message for NULL values (thrown by allowNull: false)
-                        msg: 'Please provide a value for "title"'
+                        msg: 'Please provide a Title'
                     },
                     notEmpty: { 
                         // custom error message for empty strings (thrown by STRING data type)
-                        msg: 'Please provide a value for "title"'
+                        msg: 'Please provide a Title'
                     }
                 }
             },
@@ -26,11 +26,11 @@ module.exports = (sequelize) => {
                 validate: {
                     notNull: { 
                         // custom error message for NULL values (thrown by allowNull: false)
-                        msg: 'Please provide a value for "author"'
+                        msg: 'Please provide an Author'
                     },
                     notEmpty: { 
                         // custom error message for empty strings (thrown by STRING data type)
-                        msg: 'Please provide a value for "author"'
+                        msg: 'Please provide an Author'
                     }
                 }
             },
@@ -38,7 +38,13 @@ module.exports = (sequelize) => {
                 type: Sequelize.STRING
             },
             year: {
-                type: Sequelize.INTEGER
+                type: Sequelize.INTEGER,
+                validate: {
+                    len: {
+                        args: 4,
+                        msg: 'Year must be exactly 4 digits'
+                    }
+                }
             }
         },
         { // options object
