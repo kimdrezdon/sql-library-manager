@@ -8,10 +8,15 @@ const { Book } = require("../db").models;
 //GET /books - Display the full list of books 
 router.get('/', async (req, res, next) => {
     try {
-        const books = await Book.findAndCountAll();
+        const books = await Book.findAll({
+            order: [
+                ['author', 'ASC'],
+                ['year', 'ASC']
+            ]
+        });
         res.render('index', {
             pageTitle: "Books", 
-            books: books.rows
+            books: books
         });
     } catch (err) {
         res.render('error', {error: err, pageTitle: "Server Error"});
