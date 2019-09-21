@@ -51,12 +51,11 @@ const appendPageLinks = list => {
         const a = document.createElement("a");
         const pageNum = i + 1;
         a.textContent = pageNum;
-        a.className = 'page';
         a.href = "#";
         li.appendChild(a);
     }
 
-    const pageLinks = document.querySelectorAll("a.page");
+    const pageLinks = linkDiv.querySelectorAll("a");
     pageLinks[0].className = 'active';
 
     for (let i = 0; i < pageLinks.length; i++) {
@@ -67,7 +66,7 @@ const appendPageLinks = list => {
             const activePage = e.target;
             activePage.className = "active";
             const activePageNum = i + 1;
-            showPage(bookList, activePageNum);
+            showPage(list, activePageNum);
         });
     }
 }
@@ -112,9 +111,7 @@ const filter = () => {
 /*
 Adds event listeners to search component so users can either click or press Enter/Return to submit their search
 */
-button.addEventListener("click", () => {
-    filter();
-});
+button.addEventListener("click", () => filter());
 
 input.addEventListener("keyup", e => {
     if (e.key === "Enter") {
