@@ -9,12 +9,9 @@ const { Book } = require("../db").models;
 router.get('/', async (req, res, next) => {
     try {
         const books = await Book.findAndCountAll();
-        const booksPerPage = 5;
-        const totalPages = Math.ceil(books.count / booksPerPage);
         res.render('index', {
             pageTitle: "Books", 
-            books: books.rows,
-            totalPages: totalPages
+            books: books.rows
         });
     } catch (err) {
         res.render('error', {error: err, pageTitle: "Server Error"});

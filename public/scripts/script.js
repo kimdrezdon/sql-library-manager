@@ -1,11 +1,19 @@
-const pageLinks = document.querySelectorAll("a.page");
 const bookList = document.querySelectorAll("tr.book-item");
-const booksPerPage = 5;
+const booksPerPage = 10;
+const searchComponent = document.querySelector('.book-search');
+const input = searchComponent.querySelector('input');
+const button = searchComponent.querySelector('button');
+const pageDiv = document.querySelector(".wrapper");
 
-/* 
-Makes the first page link active on page load
+/*
+Creates div to store No Results message, defaults it to hidden
 */
-pageLinks[0].className = 'active';
+const noResultsDiv = document.createElement("div");
+pageDiv.appendChild(noResultsDiv);
+noResultsDiv.innerHTML =
+  '<p style = "font-style: italic">No results' +
+  " were found. Please try another search.</p>";
+noResultsDiv.style.display = "none";
 
 /*
 Displays only five books at a time, based on the page selected. Adds the active class to only the active page link
@@ -24,21 +32,92 @@ const showPage = (list, page) => {
 };
 
 /*
-Adds event listeners to pagination links, and calls the showPage function when each link is clicked
+Creates the correct number of page links based on the total number of books in the database or search. Adds event listeners 
+to the pagination links. Calls the showPage function when each link is clicked.
 */
-for (let i = 0; i < pageLinks.length; i++) {
-    pageLinks[i].addEventListener("click", e => {
-        for (let i = 0; i < pageLinks.length; i++) {
-            pageLinks[i].className = "";
-        }
-        const activePage = e.target;
-        activePage.className = "active";
-        const activePageNum = i + 1;
-        showPage(bookList, activePageNum);
-    });
+const appendPageLinks = list => {
+    const totalPages = Math.ceil(list.length / booksPerPage);
+    
+    const linkDiv = document.createElement("div");
+    linkDiv.className = "pagination";
+    pageDiv.appendChild(linkDiv);
+
+    const ul = document.createElement("ul");
+    linkDiv.appendChild(ul);
+
+    for (let i = 0; i < totalPages; i++) {
+        const li = document.createElement("li");
+        ul.appendChild(li);
+        const a = document.createElement("a");
+        const pageNum = i + 1;
+        a.textContent = pageNum;
+        a.className = 'page';
+        a.href = "#";
+        li.appendChild(a);
+    }
+
+    const pageLinks = document.querySelectorAll("a.page");
+    pageLinks[0].className = 'active';
+
+    for (let i = 0; i < pageLinks.length; i++) {
+        pageLinks[i].addEventListener("click", e => {
+            for (let i = 0; i < pageLinks.length; i++) {
+                pageLinks[i].className = "";
+            }
+            const activePage = e.target;
+            activePage.className = "active";
+            const activePageNum = i + 1;
+            showPage(bookList, activePageNum);
+        });
+    }
 }
 
 /*
-Calls the showPage function so the initial page load will display page 1 of the book list
+Calls the showPage and appendPageLinks functions so the initial page load will display page 1 of the book list
 */
 showPage(bookList, 1);
+
+appendPageLinks(bookList);
+
+/*
+Searches/filters book list by finding partial matches to user's input and displays the correct 
+number of page links based on the results
+*/
+const filter = () => {
+    const userInput = input.value.toUpperCase();
+    const filteredList = [];
+    const linkDiv = document.querySelector(".pagination");
+    let results = false;
+
+    for (let i = 0; i < bookList.length; i++) {
+        if (bookList[i].textContent.toUpperCase().includes(userInput)) {
+            bookList[i].style.display = "";
+            filteredList.push(bookList[i]);
+            results = true;
+        } else {
+            bookList[i].style.display = "none";
+        }
+    }
+    if (results === true) {
+        noResultsDiv.style.display = "none";
+    } else {
+        noResultsDiv.style.display = "";
+    }
+
+    pageDiv.removeChild(linkDiv);
+    showPage(filteredList, 1);
+    appendPageLinks(filteredList);
+};
+  
+/*
+Adds event listeners to search component so users can either click or press Enter/Return to submit their search
+*/
+button.addEventListener("click", () => {
+    filter();
+});
+
+input.addEventListener("keyup", e => {
+    if (e.key === "Enter") {
+        filter();
+    }
+});

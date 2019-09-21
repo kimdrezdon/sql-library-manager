@@ -72,10 +72,12 @@ th {
 
 tr {
   min-height: 50px;
+  border: 1px;
+  background-color: #fff;
 }
 
-tr:nth-child(2n) {
-  background: #E7E7E7;
+tr.table-headers {
+  background-color: #A26769;
 }
 
 td {
