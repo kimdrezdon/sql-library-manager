@@ -1,25 +1,26 @@
 body {
   padding: 10px 50px 50px;
-  font: 18px "Garamond", serif;
   background-image: url('../images/alfons-morales-YLSwjSy7stw-unsplash.jpg');
   background-color: #000000;
   background-size: contain;
-  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
+  font-size: 16px;
 }
 
 div.wrapper {
-  background-color: #D5B9B2;
+  background: rgba(0, 32, 32, 0.85);
 }
 
 h1 {
   text-align: center;
-  padding: 20px 0 0 0;
+  padding: 25px 0 0 0;
+  color: rgba(255, 249, 242, 1);
 }
 
 a {
-  color: #A26769;
+  color: rgba(1, 82, 117, 1);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
   transition: 0.4s;
 }
 
@@ -28,8 +29,8 @@ a {
   }
 
 a.button, input[type=submit] {
-  color: white;
-  background: #A26769;
+  color: rgba(255, 249, 242, 1);
+  background: rgba(1, 82, 117, 0.8);
   padding: 10px 14px 12px;
   font-size: 14px;
   border-radius: 2px;
@@ -37,7 +38,7 @@ a.button, input[type=submit] {
 }
 
 form {
-  padding: 20px;
+  padding: 25px;
 }
 
 form a.button, input[type=submit] {
@@ -50,11 +51,11 @@ input[type=submit] {
 }
 
 a.button:hover, input[type=submit]:hover {
-  background-color: #A26769;
+  background-color: rgba(1, 82, 117, 0.8);
 }
 
 p {
-  margin: 20px auto;
+  margin: 25px auto;
 }
 
 ul {
@@ -65,24 +66,27 @@ ul {
 }
 
 table {
-  width: 100%;
+  width: 98%;
   padding: 20px;
+  border-color: rgba(0, 32, 32, 0.8);
+  margin: auto;
 }
 
 th {
-  border-bottom: 2px solid #D8B493;
+  border-bottom: 2px solid;
   text-align: left;
   padding: 5px 20px 5px 10px;
+  color: rgba(255, 249, 242, 1);
 }
 
 tr {
   min-height: 50px;
   border: 1px;
-  background-color: #fff;
+  background-color: rgba(255, 249, 242, .9);;
 }
 
 tr.table-headers {
-  background-color: #A26769;
+  background-color: rgba(1, 82, 117, 0.8);
 }
 
 td {
@@ -90,17 +94,19 @@ td {
 }
 
 label {
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 16px;
   min-width: 130px;
   display: inline-block;
   transition: 0.4s;
+  color: rgba(255, 249, 242, 1);
 }
 
 input {
   padding: 10px;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 2px;
-  border-color: #E7E7E7;
+  border-color: rgba(255, 249, 242, .9);
   transition: 0.4s;
 }
 
@@ -110,21 +116,25 @@ input[type=text] {
 }
 
 .error {
-  color: #582C4D;
+  padding: 0 0 25px 25px;
+  font-size: 16px;
+  color: rgba(255, 249, 242, 1);
 }
 
 .page-not-found {
-  padding: 0 0 20px 20px;
+  padding: 0 0 25px 25px;
+  font-size: 16px;
+  color: rgba(255, 249, 242, 1);
 }
 
 .errors {
-  padding: 0 0 0 20px;
-  color: #582C4D;
+  padding: 0 0 0 25px;
+  color: rgba(2, 173, 247, 1);
 }
 
 .page-header{
   margin-bottom: 100px;
-  padding: 0 20px;
+  padding: 0 40px;
 }
   .page-header p{
     float: left;
@@ -136,17 +146,18 @@ input[type=text] {
 
     .page-header .book-search input{
       border-radius: 2px;
-      border: 1px solid #eaeaea;
+      border: 1px solid rgba(255, 249, 242, .9);
       padding: 10px 14px 12px;
-      font-size: 16px;
+      font-size: 14px;
+      background: rgba(255, 249, 242, .9);
     }
 
     .page-header .book-search button{
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 700 ;
       transition: 0.4s;
-      color: white;
-      background: #A26769;
+      color: rgba(255, 249, 242, 1);
+      background: rgba(1, 82, 117, 0.8);
       padding: 10px 14px 12px;
       font-size: 14px;
       border-radius: 2px;
@@ -159,7 +170,7 @@ input[type=text] {
 
 .pagination{
   margin: 30px 0;
-  padding: 0 0 20px 0;
+  padding: 0 0 25px 0;
   text-align: center;
 }
  
@@ -168,16 +179,16 @@ input[type=text] {
   }
 
     .pagination li a{
-      border: 1px solid #eaeaea;
+      border: 1px solid;
       border-radius: 5px;
-      padding: 2px 6px;
+      padding: 2px 7px;
       text-decoration: none;
-      background: #fff;
-      color: #A26769;
+      background: rgba(255, 249, 242, 0.9);
+      color: rgba(1, 82, 117, 0.8);
     }
 
     .pagination li a.active,
     .pagination li a:hover{
-      background: #A26769;
-      color: #fff;
+      background: rgba(1, 82, 117, 0.8);
+      color: rgba(255, 249, 242, .9);
     }
