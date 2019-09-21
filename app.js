@@ -25,6 +25,11 @@ app.use("/static", express.static("public"));
 app.use('/', require("./routes/index"));
 app.use('/books', require("./routes/books"));
 
+//Error route
+app.use((req, res, next) => {
+  res.render('page-not-found', {pageTitle: "Page Not Found"});
+});
+
 //Heroku port setup
 let port = process.env.PORT || 5000;
 
