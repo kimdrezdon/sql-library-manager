@@ -1,9 +1,9 @@
 body {
   padding: 10px 50px 50px;
-  background-image: url('../images/alfons-morales-YLSwjSy7stw-unsplash.jpg');
+  background-image: url("../images/alfons-morales-YLSwjSy7stw-unsplash.jpg");
   background-color: #000000;
   background-size: contain;
-  font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
+  font-family: "Noto Sans", Helvetica, Arial, sans-serif;
   font-size: 16px;
 }
 
@@ -24,11 +24,12 @@ a {
   transition: 0.4s;
 }
 
-  a:hover {
-    color: black;
-  }
+a:hover {
+  color: black;
+}
 
-a.button, input[type=submit] {
+a.button,
+input[type="submit"] {
   color: rgba(255, 249, 242, 1);
   background: rgba(1, 82, 117, 0.8);
   padding: 10px 14px 12px;
@@ -41,16 +42,18 @@ form {
   padding: 25px;
 }
 
-form a.button, input[type=submit] {
+form a.button,
+input[type="submit"] {
   margin-left: 140px;
   transition: 0.4s;
 }
 
-input[type=submit] {
+input[type="submit"] {
   border: 0;
 }
 
-a.button:hover, input[type=submit]:hover {
+a.button:hover,
+input[type="submit"]:hover {
   background-color: rgba(1, 82, 117, 0.8);
 }
 
@@ -82,7 +85,7 @@ th {
 tr {
   min-height: 50px;
   border: 1px;
-  background-color: rgba(255, 249, 242, .9);;
+  background-color: rgba(255, 249, 242, 0.9);
 }
 
 tr.table-headers {
@@ -114,11 +117,11 @@ input {
   padding: 10px;
   font-size: 16px;
   border-radius: 2px;
-  border-color: rgba(255, 249, 242, .9);
+  border-color: rgba(255, 249, 242, 0.9);
   transition: 0.4s;
 }
 
-input[type=text] {
+input[type="text"] {
   margin-left: 7px;
   width: 300px;
 }
@@ -140,63 +143,63 @@ input[type=text] {
   color: rgba(2, 173, 247, 1);
 }
 
-.page-header{
+.page-header {
   margin-bottom: 100px;
   padding: 0 40px;
 }
-  .page-header p{
-    float: left;
-  }
+.page-header p {
+  float: left;
+}
 
-  .page-header .book-search{
-    float: right;
-  }
+.page-header .book-search {
+  float: right;
+}
 
-    .page-header .book-search input{
-      border-radius: 2px;
-      border: 1px solid rgba(255, 249, 242, .9);
-      padding: 10px 14px 12px;
-      font-size: 14px;
-      background: rgba(255, 249, 242, .9);
-    }
+.page-header .book-search input {
+  border-radius: 2px;
+  border: 1px solid rgba(255, 249, 242, 0.9);
+  padding: 10px 14px 12px;
+  font-size: 14px;
+  background: rgba(255, 249, 242, 0.9);
+}
 
-    .page-header .book-search button{
-      text-decoration: none;
-      font-weight: 700 ;
-      transition: 0.4s;
-      color: rgba(255, 249, 242, 1);
-      background: rgba(1, 82, 117, 0.8);
-      padding: 10px 14px 12px;
-      font-size: 14px;
-      border-radius: 2px;
-      cursor: pointer;
-    }
+.page-header .book-search button {
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.4s;
+  color: rgba(255, 249, 242, 1);
+  background: rgba(1, 82, 117, 0.8);
+  padding: 10px 14px 12px;
+  font-size: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+}
 
 .book-list {
   display: block;
 }
 
-.pagination{
+.pagination {
   margin: 30px 0;
   padding: 0 0 25px 0;
   text-align: center;
 }
- 
-  .pagination li{
-    display: inline;
-  }
 
-    .pagination li a{
-      border: 1px solid;
-      border-radius: 5px;
-      padding: 2px 7px;
-      text-decoration: none;
-      background: rgba(255, 249, 242, 0.9);
-      color: rgba(1, 82, 117, 0.8);
-    }
+.pagination li {
+  display: inline;
+}
 
-    .pagination li a.active,
-    .pagination li a:hover{
-      background: rgba(1, 82, 117, 0.8);
-      color: rgba(255, 249, 242, .9);
-    }
+.pagination li a {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 2px 7px;
+  text-decoration: none;
+  background: rgba(255, 249, 242, 0.9);
+  color: rgba(1, 82, 117, 0.8);
+}
+
+.pagination li a.active,
+.pagination li a:hover {
+  background: rgba(1, 82, 117, 0.8);
+  color: rgba(255, 249, 242, 0.9);
+}

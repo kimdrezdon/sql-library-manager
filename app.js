@@ -3,11 +3,11 @@ const express = require("express");
 const app = express();
 
 //body parser
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // imports the database from index.js
-const db = require('./db');
+const db = require("./db");
 
 //Set Pug as the templating engine
 app.set("view engine", "pug");
@@ -22,12 +22,12 @@ db.sequelize.sync();
 app.use("/static", express.static("public"));
 
 //Routes
-app.use('/', require("./routes/index"));
-app.use('/books', require("./routes/books"));
+app.use("/", require("./routes/index"));
+app.use("/books", require("./routes/books"));
 
 //Error route
 app.use((req, res, next) => {
-  res.render('page-not-found', {pageTitle: "Page Not Found"});
+  res.render("page-not-found", { pageTitle: "Page Not Found" });
 });
 
 //Heroku port setup
