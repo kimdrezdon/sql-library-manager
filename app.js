@@ -27,7 +27,7 @@ app.use("/books", require("./routes/books"));
 
 //Error route
 app.use((req, res, next) => {
-  res.render("page-not-found", { pageTitle: "Page Not Found" });
+  res.status(404).render("page-not-found", { pageTitle: "Page Not Found" });
 });
 
 //Heroku port setup
