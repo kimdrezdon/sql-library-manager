@@ -1,0 +1,14 @@
+//- Displays the delete book message
+extends layout.pug
+
+block content
+    .wrapper
+        h1 Delete Book
+            h2 
+                | Are you sure you want to delete 
+                em= book.title
+                | ?
+            form(action=`/books/${book.id}/delete`, method="post")
+                a.button(href=`/books/${book.id}`) No! Take me back 
+                | 
+                input(type="submit", value = "Yes, I'm sure")
