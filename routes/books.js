@@ -7,134 +7,113 @@ const { Book } = require("../db").models;
 
 const { sequelize } = Book;
 
-//GET /books - Display the full list of books ordered by author then year
-router.get("/", async (req, res, next) => {
-  try {
-    const books = await Book.findAll({
-      order: [
-        [sequelize.fn("upper", sequelize.col("author")), "ASC"],
-        ["year", "ASC"]
-      ]
-    });
-    res.render("index", {
-      pageTitle: "My Library",
-      books: books
-    });
-  } catch (err) {
-    res.render("error", { error: err, pageTitle: "Server Error" });
+/* Handler function to wrap each route. */
+function asyncHandler(cb){
+  return async(req, res, next) => {
+    try {
+      await cb(req, res, next)
+    } catch (error) {
+      res.status(500).render("error", { error: error, pageTitle: "Server Error" });
+    }
   }
-});
+}
+
+//GET /books - Display the full list of books ordered by author then year
+router.get("/", asyncHandler(async (req, res, next) => {
+  const books = await Book.findAll({
+    order: [
+      [sequelize.fn("upper", sequelize.col("author")), "ASC"],
+      ["year", "ASC"]
+    ]
+  });
+  res.render("index", { pageTitle: "My Library", books: books });
+}));
 
 //GET /books/new - Display the create new book form
-router.get("/new", async (req, res, next) => {
-  try {
-    await Book.build();
-    res.render("new-book", {
-      pageTitle: "New Book"
-    });
-  } catch (err) {
-    res.render("error", { error: err, pageTitle: "Server Error" });
-  }
+router.get("/new", (req, res, next) => {
+  res.render("new-book", { pageTitle: "New Book" });
 });
 
 //POST /books/new - Posts a new book to the database
-router.post("/new", async (req, res, next) => {
+router.post("/new", asyncHandler(async (req, res, next) => {
   try {
     await Book.create(req.body);
     res.redirect("/books");
-  } catch (err) {
-    if (err.name === "SequelizeValidationError") {
-      console.log("Sequelize Validation Error thrown");
+  } catch (error) {
+    if (error.name === "SequelizeValidationError") {
       const book = await Book.build(req.body);
-      const { title, author, genre, year } = book.dataValues;
       const templateData = {
-        pageTitle: "New Book",
-        title,
-        author,
-        genre,
-        year,
-        errors: err.errors
-      };
+        pageTitle: "New Book", 
+        book: book.dataValues, 
+        errors: error.errors
+      }
       res.render("new-book", templateData);
     } else {
-      res.render("error", { error: err, pageTitle: "Server Error" });
+      throw error;
     }
   }
-});
+}));
 
 //GET /books/:id - Displays the book detail form
-router.get("/:id", async (req, res, next) => {
-  try {
-    const book = await Book.findByPk(req.params.id);
-    if (book) {
-      const { id, title, author, genre, year } = book.dataValues;
-
-      const templateData = {
-        pageTitle: "Update Book",
-        id,
-        title,
-        author,
-        genre,
-        year
-      };
-
-      res.render("update-book", templateData);
-    } else {
-      res.render("page-not-found", { pageTitle: "Page Not Found" });
-    }
-  } catch (err) {
-    res.render("error", { error: err, pageTitle: "Server Error" });
+router.get("/:id", asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  if (book) {
+    const templateData = {
+      pageTitle: "Update Book", 
+      id: book.dataValues.id, 
+      book: book.dataValues
+    };
+    res.render("update-book", templateData);
+  } else {
+    res.status(404).render("page-not-found", { pageTitle: "Page Not Found" });
   }
-});
+}));
 
 //POST /books/:id - Updates book info in the database
-router.post("/:id", async (req, res, next) => {
+router.post("/:id", asyncHandler(async (req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.id);
-
     if (book) {
       await book.update(req.body);
     } else {
-      res.render("page-not-found", { pageTitle: "Page Not Found" });
+      res.status(404).render("page-not-found", { pageTitle: "Page Not Found" });
     }
-
     res.redirect("/books");
-  } catch (err) {
-    if (err.name === "SequelizeValidationError") {
-      console.log("Sequelize Validation Error thrown");
+  } catch (error) {
+    if (error.name === "SequelizeValidationError") {
       const book = await Book.build(req.body);
-      const { title, author, genre, year } = book.dataValues;
-
-      const templateData = {
-        pageTitle: "Update Book",
-        id: req.params.id,
-        title,
-        author,
-        genre,
-        year,
-        errors: err.errors
+      const templateData = { 
+        pageTitle: "Update Book", 
+        id: req.params.id, 
+        book: book.dataValues, 
+        errors: error.errors 
       };
-
       res.render("update-book", templateData);
     } else {
-      res.render("error", { pageTitle: "Server Error" });
+      throw error;
     }
   }
-});
+}));
+
+//GET /books/:id/delete - Displays the delete book confirmation screen
+router.get("/:id/delete", asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  if (book) {
+    res.render("delete", { book: book.dataValues, pageTitle: "Delete Book" });
+  } else {
+    res.status(404).render("page-not-found", { pageTitle: "Page Not Found" });
+  }
+}))
 
 //POST /books/:id/delete - Deletes a book, can't be undone
-router.post("/:id/delete", async (req, res, next) => {
-  try {
-    const book = await Book.findByPk(req.params.id);
-    if (book) {
-      await book.destroy();
-      res.redirect("/books");
-    } else {
-      res.render("page-not-found", { pageTitle: "Page Not Found" });
-    }
-  } catch (err) {
-    res.render("error", { error: err, pageTitle: "Server Error" });
+router.post("/:id/delete", asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  if (book) {
+    await book.destroy();
+    res.redirect("/books");
+  } else {
+    res.status(404).render("page-not-found", { pageTitle: "Page Not Found" });
   }
-});
+}));
 
 module.exports = router;
