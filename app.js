@@ -12,9 +12,6 @@ const db = require("./db");
 //Set Pug as the templating engine
 app.set("view engine", "pug");
 
-// destructures the Book model imported from db.models
-const { Book } = db.models;
-
 // sync all tables. force:true drops the table that exists each time the app is started and recreates it from the model definition
 db.sequelize.sync();
 
